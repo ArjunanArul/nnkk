@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KPH Masterclass</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .font-creative {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-900 bg-white">
+  
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <button id="logo-btn" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 bg-black rounded-none flex items-center justify-center text-yellow-400 font-bold text-xl border-2 border-transparent group-hover:bg-yellow-400 group-hover:text-black transition-colors">K</div>
+        <span class="text-xl font-bold tracking-tighter text-black font-creative">
+          KPH <span class="text-yellow-600">MASTERCLASS</span>
+        </span>
+      </button>
+
+      <div id="desktop-nav" class="hidden md:flex items-center gap-8">
+        <div id="nav-links"></div>
+        <button id="cta-btn" class="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2.5 font-bold transition-all transform hover:-translate-y-0.5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+          Get All Access
+        </button>
+      </div>
+
+      <button id="mobile-menu-btn" class="md:hidden text-black">
+        <i data-lucide="menu" class="w-7 h-7"></i>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden absolute top-full left-0 w-full bg-white border-b-2 border-black py-8 px-6 flex flex-col gap-6">
+      <button id="mobile-home-btn" class="text-black font-bold text-xl font-creative text-left">Home</button>
+      <button class="text-black font-bold text-xl font-creative text-left">Courses</button>
+      <button id="mobile-cta-btn" class="bg-yellow-400 text-black px-6 py-4 font-bold text-center border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        Get All Access
+      </button>
+    </div>
+  </nav>
+
+  <div id="app-content"></div>
+
+  <footer class="bg-black text-white pt-20 pb-10">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+        <div class="max-w-sm">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-8 h-8 bg-white rounded-none flex items-center justify-center text-black font-bold text-lg">K</div>
+            <span class="text-xl font-bold tracking-tighter text-white font-creative">
+              KPH <span class="text-yellow-400">MASTERCLASS</span>
+            </span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Real founders. Real stories. Real education.<br>
+            Empowering the next generation of builders.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-16">
+          <div>
+            <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs">Platform</h4>
+            <ul class="space-y-3 text-sm text-gray-400">
+              <li><a href="#" class="hover:text-yellow-400">All Courses</a></li>
+              <li><a href="#" class="hover:text-yellow-400">Instructor Application</a></li>
+              <li><a href="#" class="hover:text-yellow-400">Login</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs">Legal</h4>
+            <ul class="space-y-3 text-sm text-gray-400">
+              <li><a href="#" class="hover:text-yellow-400">Terms</a></li>
+              <li><a href="#" class="hover:text-yellow-400">Privacy</a></li>
+              <li><a href="#" class="hover:text-yellow-400">Refund Policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 pt-8 text-center text-xs text-gray-500">
+        <p>&copy; 2024 KPH Masterclass. Built for founders.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="enrollment-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-white w-full max-w-md p-0 relative shadow-2xl scale-100 transition-transform overflow-hidden">
+      <button id="close-modal-btn" class="absolute top-4 right-4 text-black hover:bg-gray-100 p-2 z-10">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="bg-yellow-400 p-8 text-center">
+        <h3 id="modal-title" class="text-3xl font-bold text-black font-creative mb-2">Join the Class</h3>
+        <p class="text-black/80 font-medium">Get lifetime access to premium content</p>
+      </div>
+
+      <div class="p-8">
+        <form class="space-y-5" onsubmit="event.preventDefault();">
+          <div>
+            <label class="block text-xs font-bold uppercase text-black mb-2">Email Address</label>
+            <input 
+              type="email" 
+              class="w-full px-4 py-3 border-2 border-gray-200 focus:border-black outline-none transition-all bg-gray-50 focus:bg-white placeholder-gray-400 text-black"
+              placeholder="founder@startup.com"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-black mb-2">Create Password</label>
+            <input 
+              type="password" 
+              class="w-full px-4 py-3 border-2 border-gray-200 focus:border-black outline-none transition-all bg-gray-50 focus:bg-white placeholder-gray-400 text-black"
+              placeholder="••••••••"
+            />
+          </div>
+
+          <button class="w-full bg-black hover:bg-gray-800 text-white font-bold py-4 text-lg transition-all shadow-lg mt-4">
+            Complete Purchase
+          </button>
+          
+          <p class="text-xs text-center text-gray-400 mt-4 leading-tight">
+            By joining, you agree to our Terms of Service. Secure payment powered by Stripe.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentView = 'home';
+    let modalOpen = false;
+    let mobileMenuOpen = false;
+    let openModuleIdx = 0;
+
+    const modules = [
+      {
+        title: "Module 1: Idea Validation",
+        desc: "Stop guessing. Learn the three frameworks to validate if your problem is worth solving before writing code.",
+        topics: [
+          "Scratch your own itch: The Slack & Dropbox origin stories",
+          "Frequency vs. Intensity: Why Uber & DoorDash won",
+          "Fake it before you make it: The Zappos & Buffer MVP strategy"
+        ]
+      },
+      {
+        title: "Module 2: Bootstrapping vs VC Capital",
+        desc: "It's not just a choice; it's market physics. Understanding capital intensity and speed to market.",
+        topics: [
+          "Winner-takes-all dynamics vs Lifestyle businesses",
+          "The $100M ARR Math: How many customers do you actually need?",
+          "Mice, Deer, or Elephants: Which animal are you hunting?"
+        ]
+      },
+      {
+        title: "Module 3: Building the Product Core",
+        desc: "The unscalable things you must do to get your first 100 customers to absolutely love you.",
+        topics: [
+          "Airbnb's 'Door-to-Door' photography strategy",
+          "Stripe's 'Collison Installation' method",
+          "Tinder's 'Campus Party' hack for critical mass"
+        ]
+      },
+      {
+        title: "Module 4: The 5 Ways to Get Customers",
+        desc: "Putting the flywheel in motion. There are only five ways to grow. Pick one and master it.",
+        topics: [
+          "Inbound (HubSpot) vs Outbound (Salesforce)",
+          "Paid Ads (DoorDash) vs Viral Referrals (PayPal)",
+          "The 'Just Don't Die' Rule of startups"
+        ]
+      },
+      {
+        title: "Module 5: Understanding Retention",
+        desc: "Growth means nothing if your bucket is leaky. How to read the data to confirm Product-Market Fit.",
+        topics: [
+          "Reading Cohort Analysis tables",
+          "Logo Retention Rate vs Net Revenue Retention (NRR)",
+          "Good vs Great Benchmarks by ARPA range"
+        ]
+      }
+    ];
+
+    function renderHomeView() {
+      return `
+        <section class="relative pt-32 pb-24 bg-black text-white overflow-hidden">
+          <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+          <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-yellow-500/10 rounded-full blur-3xl -ml-20 -mb-20"></div>
+
+          <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 border border-white/20 px-4 py-2 rounded-full mb-8 bg-white/5 backdrop-blur-sm">
+              <span class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+              <span class="text-sm font-medium tracking-wide">The KPH Platform is Live</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl font-bold font-creative mb-8 leading-tight">
+              REAL FOUNDERS.<br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-yellow-600">REAL STORIES.</span>
+            </h1>
+            
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-light">
+              Skip the theoretical MBA fluff. Learn directly from founders who have built, scaled, and exited real companies. Unfiltered operational playbooks.
+            </p>
+            
+            <div class="flex justify-center gap-12 text-center">
+              <div>
+                <h3 class="text-3xl font-bold text-white mb-1">50+</h3>
+                <p class="text-gray-500 text-xs uppercase tracking-widest">Hours of Content</p>
+              </div>
+              <div>
+                <h3 class="text-3xl font-bold text-white mb-1">10k+</h3>
+                <p class="text-gray-500 text-xs uppercase tracking-widest">Community Members</p>
+              </div>
+              <div>
+                <h3 class="text-3xl font-bold text-white mb-1">Top 1%</h3>
+                <p class="text-gray-500 text-xs uppercase tracking-widest">Instructors</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="featured" class="py-24 bg-white">
+          <div class="container mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+              <div>
+                <h2 class="text-4xl font-bold text-black font-creative">Featured Masterclasses</h2>
+                <p class="text-gray-500 mt-2">Deep dives into specific startup challenges.</p>
+              </div>
+              <button class="hidden md:flex items-center gap-2 text-black font-bold hover:text-yellow-600 transition-colors">
+                View All <i data-lucide="arrow-right" class="w-5 h-5"></i>
+              </button>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div id="course-card" class="group cursor-pointer bg-white border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(250,204,21,1)] hover:-translate-y-2 transition-all duration-300">
+                <div class="aspect-video bg-gray-100 relative overflow-hidden">
+                  <img 
+                    src="1721687044867.jpg" 
+                    alt="Arjun Paul" 
+                    class="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500"
+                    onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'%3E%3Crect fill=\'%23f3f4f6\' width=\'800\' height=\'600\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-family=\'sans-serif\' font-size=\'24\'%3EArjun Paul%3C/text%3E%3C/svg%3E'"
+                  />
+                  <div class="absolute top-4 left-4 bg-yellow-400 text-black text-xs font-bold px-3 py-1 uppercase tracking-widest border border-black">
+                    Product
+                  </div>
+                </div>
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold font-creative mb-2 group-hover:text-yellow-600 transition-colors">Zero to PMF</h3>
+                  <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                    Establish your idea, build an MVP, and find Product-Market Fit. The complete roadmap.
+                  </p>
+                  <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                      <img src="arjun-paul.jpg" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Ccircle fill=\'%23e5e7eb\' cx=\'50\' cy=\'50\' r=\'50\'/%3E%3C/svg%3E'" />
+                    </div>
+                    <div>
+                      <p class="text-xs font-bold text-black uppercase">Arjun Paul</p>
+                      <p class="text-[10px] text-gray-500">Founder, Zoko</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="group opacity-60 bg-gray-50 border-2 border-dashed border-gray-300 p-8 flex flex-col items-center justify-center text-center">
+                <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-4 text-gray-400">
+                  <i data-lucide="layout" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold font-creative text-gray-400 mb-2">Fundraising 101</h3>
+                <p class="text-gray-400 text-sm">Coming Soon</p>
+                <button class="mt-6 text-xs font-bold text-gray-400 border border-gray-300 px-4 py-2 rounded-full hover:bg-black hover:text-white hover:border-black transition-all">
+                  Join Waitlist
+                </button>
+              </div>
+
+              <div class="group opacity-60 bg-gray-50 border-2 border-dashed border-gray-300 p-8 flex flex-col items-center justify-center text-center">
+                <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mb-4 text-gray-400">
+                  <i data-lucide="trending-up" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold font-creative text-gray-400 mb-2">Scale to Exit</h3>
+                <p class="text-gray-400 text-sm">Coming Soon</p>
+                <button class="mt-6 text-xs font-bold text-gray-400 border border-gray-300 px-4 py-2 rounded-full hover:bg-black hover:text-white hover:border-black transition-all">
+                  Join Waitlist
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="vision" class="py-24 bg-yellow-50">
+          <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+              <div class="md:w-1/2">
+                <i data-lucide="globe" class="w-16 h-16 text-black mb-8"></i>
+                <h2 class="text-4xl md:text-6xl font-bold font-creative mb-6">
+                  Democratizing <br>Founder Wisdom
+                </h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                  Most startup education is taught by professors who have never sold a dollar of product. KPH Masterclass flips the script. 
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                  We curate top-tier founders and extract their specific playbooks into actionable, high-production masterclasses.
+                </p>
+              </div>
+              <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                  <h4 class="font-bold text-xl mb-2">No Theory</h4>
+                  <p class="text-sm text-gray-600">We ban academic frameworks that don't work in the real world.</p>
+                </div>
+                <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-8">
+                  <h4 class="font-bold text-xl mb-2">Actionable</h4>
+                  <p class="text-sm text-gray-600">Walk away with templates, scripts, and models you can use today.</p>
+                </div>
+                <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                  <h4 class="font-bold text-xl mb-2">Vetted</h4>
+                  <p class="text-sm text-gray-600">Instructors must have &gt;$1M ARR or a successful exit.</p>
+                </div>
+                <div class="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mt-8">
+                  <h4 class="font-bold text-xl mb-2">Raw</h4>
+                  <p class="text-sm text-gray-600">We discuss the failures just as much as the wins.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderCourseView() {
+      return `
+        <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+          <div class="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+          <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-yellow-200/40 rounded-full blur-[100px] pointer-events-none"></div>
+
+          <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+              <div class="lg:w-1/2 space-y-8 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 bg-black text-yellow-400 px-4 py-2 font-bold text-xs uppercase tracking-widest border border-black transform -rotate-1">
+                  <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                  Founder Series
+                </div>
+                
+                <h1 class="text-5xl lg:text-7xl font-bold text-black leading-[1.1] font-creative">
+                  ZERO TO <span class="relative inline-block">
+                    <span class="relative z-10">PMF</span>
+                    <span class="absolute bottom-2 left-0 w-full h-4 bg-yellow-300 -z-0 transform -rotate-2"></span>
+                  </span>
+                </h1>
+                
+                <p class="text-xl text-gray-700 leading-relaxed font-light max-w-xl mx-auto lg:mx-0">
+                  Stop guessing. Start validating. A masterclass on how to establish your idea, build an MVP, and find Product-Market Fit from a founder who did it.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start pt-4">
+                  <button class="open-modal-btn bg-black text-white hover:bg-gray-900 px-10 py-5 font-bold text-lg transition-all flex items-center justify-center gap-3 border-2 border-transparent shadow-xl hover:shadow-2xl">
+                    Get Instant Access <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                  </button>
+                  <button class="bg-white border-2 border-black text-black px-10 py-5 font-bold text-lg transition-all flex items-center justify-center gap-3 hover:bg-yellow-50">
+                    <i data-lucide="play-circle" class="w-5 h-5"></i> Watch Trailer
+                  </button>
+                </div>
+
+                <div class="flex items-center justify-center lg:justify-start gap-8 pt-6 text-sm text-gray-600 font-medium">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="infinity" class="w-4.5 h-4.5 text-black"></i>
+                    <span>Lifetime Access</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="target" class="w-4.5 h-4.5 text-black"></i>
+                    <span>Actionable Frameworks</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="lg:w-1/2 relative w-full">
+                <div class="relative z-10 transform transition-all duration-500 hover:-translate-y-2">
+                  <div class="bg-white border-2 border-black p-2 shadow-[12px_12px_0px_0px_rgba(250,204,21,1)]">
+                    <div class="aspect-[4/3] bg-gray-100 overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-500 group">
+                      <img 
+                        src="1721687044867.jpg" 
+                        alt="Arjun Paul" 
+                        class="absolute inset-0 w-full h-full object-cover"
+                        onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'%3E%3Crect fill=\'%23f3f4f6\' width=\'800\' height=\'600\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-family=\'sans-serif\' font-size=\'24\'%3EArjun Paul%3C/text%3E%3C/svg%3E'"
+                      />
+                      
+                      <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
+                        <p class="text-yellow-400 font-bold tracking-widest text-sm mb-1 uppercase">Your Instructor</p>
+                        <h3 class="text-white text-3xl font-creative font-bold">Arjun Paul</h3>
+                        <p class="text-gray-300">Founder, Zoko</p>
+                      </div>
+
+                      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div class="w-20 h-20 bg-yellow-400/90 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform backdrop-blur-sm shadow-xl">
+                          <i data-lucide="play-circle" class="w-10 h-10 text-black"></i>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="p-6 bg-white">
+                      <div class="flex justify-between items-end">
+                        <div>
+                          <h4 class="font-bold text-xl mb-1 font-creative">Zero to PMF</h4>
+                        </div>
+                        <div class="text-right">
+                          <span class="block text-gray-400 line-through text-sm">$199</span>
+                          <span class="block text-3xl font-bold text-black">$49</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" class="py-20 bg-black text-white">
+          <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center space-y-8">
+              <i data-lucide="lightbulb" class="w-12 h-12 text-yellow-400 mx-auto"></i>
+              <h2 class="text-3xl md:text-5xl font-bold font-creative leading-tight">
+                "We don't teach theory. We share <span class="text-yellow-400">war stories</span>."
+              </h2>
+              <p class="text-xl text-gray-400 font-light leading-relaxed">
+                The KPH Masterclass mission is simple: To bring you real experiences from founders who have actually built products, raised capital, and scaled. No fluff. Just the raw, unpolished truth about building a startup.
+              </p>
+              <div class="w-24 h-1 bg-yellow-400 mx-auto"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="curriculum" class="py-24 bg-white">
+          <div class="container mx-auto px-6 max-w-5xl">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+              <div>
+                <span class="text-yellow-600 font-bold tracking-widest uppercase text-sm">Course Content</span>
+                <h2 class="text-4xl font-bold text-black mt-2 font-creative">The Masterclass Agenda</h2>
+              </div>
+              <div class="bg-yellow-50 px-4 py-2 border border-yellow-200 text-yellow-800 text-sm font-medium">
+                Self-Paced • 5 Modules • Lifetime Access
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-1 gap-6" id="modules-container">
+              ${modules.map((module, idx) => `
+                <div class="module-item border-2 transition-all duration-300 ${openModuleIdx === idx ? 'border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]' : 'border-gray-200 bg-gray-50'}" data-module-idx="${idx}">
+                  <button class="module-toggle w-full flex items-start justify-between p-6 text-left" data-idx="${idx}">
+                    <div class="flex gap-6">
+                      <span class="text-3xl font-creative text-gray-300 font-bold">0${idx + 1}</span>
+                      <div>
+                        <h3 class="text-xl font-bold font-creative ${openModuleIdx === idx ? 'text-black' : 'text-gray-600'}">${module.title}</h3>
+                        <p class="text-gray-500 mt-2 max-w-2xl">${module.desc}</p>
+                      </div>
+                    </div>
+                    <i data-lucide="${openModuleIdx === idx ? 'chevron-up' : 'chevron-down'}" class="text-${openModuleIdx === idx ? 'black' : 'gray-400'} flex-shrink-0 mt-2 w-5 h-5"></i>
+                  </button>
+                  
+                  <div class="module-content px-6 pb-8 ml-[4.5rem] mt-2 ${openModuleIdx === idx ? '' : 'hidden'}">
+                    <div class="h-px w-full bg-gray-100 mb-6"></div>
+                    <ul class="grid md:grid-cols-2 gap-4">
+                      ${module.topics.map(topic => `
+                        <li class="flex items-center gap-3 text-black font-medium">
+                          <div class="w-1.5 h-1.5 bg-yellow-500"></div>
+                          ${topic}
+                        </li>
+                      `).join('')}
+                    </ul>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+
+        <section id="instructor" class="py-24 bg-yellow-50 border-y border-black/5">
+          <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-16 max-w-6xl mx-auto">
+              <div class="md:w-1/3 relative group">
+                <div class="aspect-[3/4] bg-black relative z-10 overflow-hidden">
+                  <img 
+                    src="1721687044867.jpg" 
+                    alt="Arjun Paul" 
+                    class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'1000\'%3E%3Crect fill=\'%23f3f4f6\' width=\'800\' height=\'1000\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%239ca3af\' font-family=\'sans-serif\' font-size=\'24\'%3EArjun Paul%3C/text%3E%3C/svg%3E'"
+                  />
+                </div>
+                <div class="absolute top-4 left-4 w-full h-full border-2 border-black z-0"></div>
+              </div>
+              
+              <div class="md:w-2/3 space-y-6">
+                <h2 class="text-4xl font-bold font-creative">Meet Arjun Paul</h2>
+                <p class="text-xl font-medium text-yellow-700">Founder & CEO, Zoko</p>
+                <div class="h-px w-20 bg-black"></div>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                  Arjun didn't just read about Product-Market Fit; he lived it. As the founder of Zoko, he navigated the treacherous early days of a startup, pivoted, iterated, and built a product that thousands of businesses rely on today. 
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                  In this masterclass, he breaks down the exact mental models and frameworks he used to validate the idea for Zoko and scale it from zero to a sustainable business.
+                </p>
+                <div class="flex gap-4 pt-4">
+                  <a href="https://www.linkedin.com/in/arjunvpaul/" target="_blank" rel="noopener noreferrer" class="text-black hover:text-yellow-600 font-bold underline">LinkedIn</a>
+                  <a href="#" class="text-black hover:text-yellow-600 font-bold underline">Twitter</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="py-24 bg-white border-b border-black/5">
+          <div class="container mx-auto px-6 max-w-4xl text-center">
+            <div class="inline-flex items-center gap-2 bg-yellow-100 text-yellow-800 px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-widest mb-6">
+              <i data-lucide="mic" class="w-3.5 h-3.5"></i> Featured Interview
+            </div>
+            <h2 class="text-3xl md:text-5xl font-bold font-creative mb-8">Arjun Paul on Building Zoko</h2>
+            <div class="relative w-full aspect-video bg-black border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+              <iframe 
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/7ZcTD5QmCAI" 
+                title="Arjun Paul Interview" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </section>
+
+        <section class="py-24 bg-yellow-400 text-black text-center border-t-2 border-black">
+          <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-6xl font-bold mb-8 font-creative tracking-tight">Build something people want.</h2>
+            <p class="text-black/80 max-w-2xl mx-auto mb-10 text-xl font-medium">Get the roadmap to validation today. Access anytime, anywhere.</p>
+            <button class="open-modal-btn bg-black text-white px-12 py-5 font-bold text-xl hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,0.5)] transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)]">
+              Get Lifetime Access - $49
+            </button>
+          </div>
+        </section>
+      `;
+    }
+
+    function updateNavbar() {
+      const navbar = document.getElementById('navbar');
+      const navLinks = document.getElementById('nav-links');
+      const ctaBtn = document.getElementById('cta-btn');
+      const mobileCtaBtn = document.getElementById('mobile-cta-btn');
+
+      if (currentView === 'course') {
+        navLinks.innerHTML = `
+          <button class="navigate-home-btn text-black hover:text-yellow-600 font-medium transition-colors text-sm uppercase tracking-widest flex items-center gap-2">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> All Courses
+          </button>
+        `;
+        ctaBtn.textContent = 'Start Learning';
+        mobileCtaBtn.textContent = 'Start Learning';
+      } else {
+        navLinks.innerHTML = `
+          <a href="#featured" class="text-black hover:text-yellow-600 font-medium transition-colors text-sm uppercase tracking-widest">Courses</a>
+          <a href="#vision" class="text-black hover:text-yellow-600 font-medium transition-colors text-sm uppercase tracking-widest">Vision</a>
+        `;
+        ctaBtn.textContent = 'Get All Access';
+        mobileCtaBtn.textContent = 'Get All Access';
+      }
+
+      lucide.createIcons();
+    }
+
+    function renderView() {
+      const appContent = document.getElementById('app-content');
+      appContent.innerHTML = currentView === 'home' ? renderHomeView() : renderCourseView();
+      window.scrollTo(0, 0);
+      updateNavbar();
+      attachEventListeners();
+      lucide.createIcons();
+    }
+
+    function attachEventListeners() {
+      const logoBtn = document.getElementById('logo-btn');
+      const courseCard = document.getElementById('course-card');
+      const navigateHomeBtns = document.querySelectorAll('.navigate-home-btn');
+      const openModalBtns = document.querySelectorAll('.open-modal-btn');
+      const moduleToggles = document.querySelectorAll('.module-toggle');
+
+      if (logoBtn) {
+        logoBtn.onclick = () => {
+          currentView = 'home';
+          renderView();
+        };
+      }
+
+      if (courseCard) {
+        courseCard.onclick = () => {
+          currentView = 'course';
+          renderView();
+        };
+      }
+
+      navigateHomeBtns.forEach(btn => {
+        btn.onclick = () => {
+          currentView = 'home';
+          renderView();
+        };
+      });
+
+      openModalBtns.forEach(btn => {
+        btn.onclick = () => openModal();
+      });
+
+      moduleToggles.forEach(toggle => {
+        toggle.onclick = () => {
+          const idx = parseInt(toggle.getAttribute('data-idx'));
+          openModuleIdx = openModuleIdx === idx ? -1 : idx;
+          renderView();
+        };
+      });
+    }
+
+    function openModal() {
+      modalOpen = true;
+      const modal = document.getElementById('enrollment-modal');
+      const title = document.getElementById('modal-title');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      title.textContent = currentView === 'home' ? 'Get Full Access' : 'Join the Class';
+    }
+
+    function closeModal() {
+      modalOpen = false;
+      const modal = document.getElementById('enrollment-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileHomeBtn = document.getElementById('mobile-home-btn');
+      const mobileCtaBtn = document.getElementById('mobile-cta-btn');
+      const ctaBtn = document.getElementById('cta-btn');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+
+      window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 20) {
+          navbar.classList.remove('bg-transparent', 'py-6');
+          navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-4');
+        } else {
+          navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-sm', 'py-4');
+          navbar.classList.add('bg-transparent', 'py-6');
+        }
+      });
+
+      mobileMenuBtn.onclick = () => {
+        mobileMenuOpen = !mobileMenuOpen;
+        if (mobileMenuOpen) {
+          mobileMenu.classList.remove('hidden');
+          mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-7 h-7"></i>';
+        } else {
+          mobileMenu.classList.add('hidden');
+          mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+        }
+        lucide.createIcons();
+      };
+
+      mobileHomeBtn.onclick = () => {
+        currentView = 'home';
+        mobileMenuOpen = false;
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+        renderView();
+      };
+
+      mobileCtaBtn.onclick = () => {
+        openModal();
+        mobileMenuOpen = false;
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
+      };
+
+      ctaBtn.onclick = () => openModal();
+      closeModalBtn.onclick = () => closeModal();
+
+      document.getElementById('enrollment-modal').onclick = (e) => {
+        if (e.target.id === 'enrollment-modal') {
+          closeModal();
+        }
+      };
+
+      renderView();
+    });
+  </script>
+</body>
+</html>

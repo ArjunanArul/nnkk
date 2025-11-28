@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KPH Masterclass</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -255,7 +256,7 @@
                   </p>
                   <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
                     <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-                      <img src="arjun-paul.jpg" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Ccircle fill=\'%23e5e7eb\' cx=\'50\' cy=\'50\' r=\'50\'/%3E%3C/svg%3E'" />
+                      <img src="arjun-profile.png" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Ccircle fill=\'%23e5e7eb\' cx=\'50\' cy=\'50\' r=\'50\'/%3E%3C/svg%3E'" />
                     </div>
                     <div>
                       <p class="text-xs font-bold text-black uppercase">Arjun Paul</p>
@@ -502,7 +503,7 @@
                 </p>
                 <div class="flex gap-4 pt-4">
                   <a href="https://www.linkedin.com/in/arjunvpaul/" target="_blank" rel="noopener noreferrer" class="text-black hover:text-yellow-600 font-bold underline">LinkedIn</a>
-                  <a href="#" class="text-black hover:text-yellow-600 font-bold underline">Twitter</a>
+                  <a href="https://x.com/zoko_arjun" target="_blank" rel="noopener noreferrer" class="text-black hover:text-yellow-600 font-bold underline">Twitter</a>
                 </div>
               </div>
             </div>
@@ -604,14 +605,57 @@
       });
 
       openModalBtns.forEach(btn => {
-        btn.onclick = () => openModal();
+        btn.onclick = () => {
+          window.location.href = 'https://nas.io/kph/digital-files/zero-to-pmf-arjun-paul';
+        };
       });
 
       moduleToggles.forEach(toggle => {
-        toggle.onclick = () => {
+        toggle.onclick = (e) => {
+          e.preventDefault();
           const idx = parseInt(toggle.getAttribute('data-idx'));
-          openModuleIdx = openModuleIdx === idx ? -1 : idx;
-          renderView();
+          const moduleItem = toggle.closest('.module-item');
+          const moduleContent = moduleItem.querySelector('.module-content');
+          const chevronIcon = toggle.querySelector('i[data-lucide]');
+          
+          if (openModuleIdx === idx) {
+            openModuleIdx = -1;
+            moduleItem.classList.remove('border-black', 'bg-white', 'shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]');
+            moduleItem.classList.add('border-gray-200', 'bg-gray-50');
+            moduleContent.classList.add('hidden');
+            toggle.querySelector('h3').classList.remove('text-black');
+            toggle.querySelector('h3').classList.add('text-gray-600');
+            chevronIcon.setAttribute('data-lucide', 'chevron-down');
+            chevronIcon.classList.remove('text-black');
+            chevronIcon.classList.add('text-gray-400');
+          } else {
+            const prevModule = document.querySelector(`.module-item[data-module-idx="${openModuleIdx}"]`);
+            if (prevModule) {
+              const prevToggle = prevModule.querySelector('.module-toggle');
+              const prevContent = prevModule.querySelector('.module-content');
+              const prevChevron = prevToggle.querySelector('i[data-lucide]');
+              prevModule.classList.remove('border-black', 'bg-white', 'shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]');
+              prevModule.classList.add('border-gray-200', 'bg-gray-50');
+              prevContent.classList.add('hidden');
+              prevToggle.querySelector('h3').classList.remove('text-black');
+              prevToggle.querySelector('h3').classList.add('text-gray-600');
+              prevChevron.setAttribute('data-lucide', 'chevron-down');
+              prevChevron.classList.remove('text-black');
+              prevChevron.classList.add('text-gray-400');
+            }
+            
+            openModuleIdx = idx;
+            moduleItem.classList.remove('border-gray-200', 'bg-gray-50');
+            moduleItem.classList.add('border-black', 'bg-white', 'shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]');
+            moduleContent.classList.remove('hidden');
+            toggle.querySelector('h3').classList.remove('text-gray-600');
+            toggle.querySelector('h3').classList.add('text-black');
+            chevronIcon.setAttribute('data-lucide', 'chevron-up');
+            chevronIcon.classList.remove('text-gray-400');
+            chevronIcon.classList.add('text-black');
+          }
+          
+          lucide.createIcons();
         };
       });
     }
@@ -672,13 +716,15 @@
       };
 
       mobileCtaBtn.onclick = () => {
-        openModal();
+        window.location.href = 'https://nas.io/kph/digital-files/zero-to-pmf-arjun-paul';
         mobileMenuOpen = false;
         mobileMenu.classList.add('hidden');
         mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-7 h-7"></i>';
       };
 
-      ctaBtn.onclick = () => openModal();
+      ctaBtn.onclick = () => {
+        window.location.href = 'https://nas.io/kph/digital-files/zero-to-pmf-arjun-paul';
+      };
       closeModalBtn.onclick = () => closeModal();
 
       document.getElementById('enrollment-modal').onclick = (e) => {
